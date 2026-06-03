@@ -66,3 +66,36 @@ BaseEstimator (abstract)
     evaluate()      ← accuracy, precision, recall, F1
 ```
 
+Regression models inherit `RegressorMixin + BaseEstimator`.
+Classification models inherit `ClassifierMixin + BaseEstimator`.
+
+---
+
+## Implementation Order
+
+| # | Algorithm | Type | Status |
+|---|-----------|------|--------|
+| 1 | Linear Regression | Regression | ⬜ |
+| 2 | Logistic Regression | Classification | ⬜ |
+| 3 | Decision Tree | Classification | ⬜ |
+| 4 | Random Forest | Classification | ⬜ |
+| 5 | KNN | Both | ⬜ |
+| 6 | Naive Bayes | Classification | ⬜ |
+
+---
+
+## How Each Algorithm Is Built
+
+1. Derive the math on paper first — loss function, gradients, update rule
+2. Implement in OOP — inheriting from `base.py`
+3. Test against sklearn — scores should be close
+4. Note differences and limitations
+
+---
+
+
+## Notes
+
+- Scratch implementations use gradient descent even where sklearn uses closed form solutions
+- Focus is on understanding internals, not matching sklearn's performance exactly
+- This folder feeds directly into the final module — no major refactoring needed
