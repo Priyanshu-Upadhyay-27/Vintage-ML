@@ -93,9 +93,8 @@ Classification models inherit `ClassifierMixin + BaseEstimator`.
 
 ---
 
-
 ## Notes
 
-- Scratch implementations use gradient descent even where sklearn uses closed form solutions
-- Focus is on understanding internals, not matching sklearn's performance exactly
-- This folder feeds directly into the final module — no major refactoring needed
+- Scratch implementations use gradient descent even where sklearn uses closed form solutions.
+- Focus is on understanding internals, not matching sklearn's performance exactly.
+- This folder feeds directly into the final module — no major refactoring needed.
