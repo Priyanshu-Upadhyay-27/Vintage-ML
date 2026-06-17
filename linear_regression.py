@@ -1,4 +1,4 @@
 
 
 class LinearRegression:
-    def __init__(self):
+    def __init__(self, m, b):
