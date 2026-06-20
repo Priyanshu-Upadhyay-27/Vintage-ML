@@ -1,8 +1,10 @@
-
+# Linear Regression - OLS method
 
 class LinearRegression:
     def __init__(self, m, b):
-        pass
+        self.m = m
+        self.b = b
+
 
     def fit(self):
         pass
