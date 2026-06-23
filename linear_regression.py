@@ -7,7 +7,7 @@ class LinearRegression:
         self.b = b
 
 
-    def fit(self):
+    def fit(self, method = "gd"):
         pass
     def predict(self):
         pass
