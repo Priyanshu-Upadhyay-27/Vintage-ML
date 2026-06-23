@@ -2,7 +2,7 @@
 # good for 2D and similar dimension, not suitable for large dimenesion
 import numpy as np
 
-class LinearRegression:
+class OrdinaryLeastSquare:
     def __init__(self):
         self.weights = None
         self.intercepts_ = None
@@ -19,5 +19,34 @@ class LinearRegression:
         n_samples = X.shape[0]
         ones_column = np.ones((n_samples, 1))
         return np.column_stack((ones_column, X))
+
+
+    def fit(self, X: np.ndarray, y: np.ndarray) -> "OrdinaryLeastSquare":
+        # 1. Protect against 1D arrays
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
+
+        # 2. Upgrade X to the Design Matrix (X)
+        X_design = self._pad_with_ones(X)
+
+        # 3. Execute the Normal Equation: Beta = (X^T * X)^(-1) * X^T * y
+        X_T = X_design.T
+
+        # (X^T @ X)
+        covariance_matrix = X_T @ X_design
+
+        # Inverse of covariance matrix
+        # Note: We use np.linalg.pinv (pseudo-inverse) rather than .inv()
+        # safely handling singular/collinear matrices without crashing Python.
+        cov_inverse = np.linalg.pinv(covariance_matrix)
+
+        # Complete the right side of the projection
+        self.weights = cov_inverse @ X_T @ y
+
+        # 4. Break out the friendly user properties
+        self.intercept_ = self.weights[0]
+        self.coef_ = self.weights[1:]
+
+        return self
 
 
