@@ -59,4 +59,10 @@ class OrdinaryLeastSquare:
         X_design = self._pad_with_ones(X)
         return X_design @ self.weights
 
+    def r2_score(self, X: np.ndarray, y_true: np.ndarray) -> float:
+        """Evaluates the model using the Coefficient of Determination (R^2)"""
+        y_pred = self.predict(X)
+        residual_sum_of_squares = np.sum((y_true - y_pred) ** 2)
+        total_sum_of_squares = np.sum((y_true - np.mean(y_true)) ** 2)
 
+        return 1.0 - (residual_sum_of_squares / total_sum_of_squares)
