@@ -49,4 +49,14 @@ class OrdinaryLeastSquare:
 
         return self
 
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        if self.weights is None:
+            raise ValueError("Model is untrained. Call .fit() first.")
+
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
+
+        X_design = self._pad_with_ones(X)
+        return X_design @ self.weights
+
 
