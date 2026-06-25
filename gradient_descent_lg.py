@@ -30,3 +30,6 @@ class GradientDescent:
             current_loss = np.mean((y - y_pred) ** 2)
             self.loss_history.append(current_loss)
 
+    def predict(self, X):
+        # The easiest function in ML: just apply the y = mx + b formula
+        return self.m * X + self.b
