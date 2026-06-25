@@ -2,34 +2,45 @@ import numpy as np
 
 class GradientDescent:
     def __init__(self, lr=0.01, ep=1000):
-        self.m = np.random.randn()
-        self.b = np.random.randn()
+        # We don't initialize weights here anymore because we don't know the dimensions yet!
+        self.weights = None
+        self.bias = None
         self.learning_rate = lr
         self.epochs = ep
         self.loss_history = []
 
     def fit(self, X, y):
-        X = X.flatten()
-        y = y.flatten()
-        N = len(X)
+        # Safety check: ensure y is a 2D column vector (N, 1)
+        if y.ndim == 1:
+            y = y.reshape(-1, 1)
+
+        # N = number of rows (samples), D = number of columns (features)
+        N, D = X.shape
+
+        # Initialize weights to shape (D, 1) and bias to a single float
+        self.weights = np.random.randn(D, 1)
+        self.bias = np.random.randn(1)
 
         for epoch in range(self.epochs):
-            y_pred = self.m * X + self.b
+            # Forward Pass: Matrix multiplication (N, D) @ (D, 1) = (N, 1)
+            y_pred = X @ self.weights + self.bias
 
-            # The Backward Pass (Gradients)
-            # Notice the np.sum() which replaces your big Sigma symbol.
-            # We divide by N to get the Mean Squared Error gradient, keeping it stable.
-            dm = (-2 / N) * np.sum(X * (y - y_pred))
-            db = (-2 / N) * np.sum(y - y_pred)
+            # Calculate Error
+            error = y_pred - y
 
-            # STEP 3: The Parameter Update (Taking a step down the hill)
-            self.m = self.m - (self.learning_rate * dm)
-            self.b = self.b - (self.learning_rate * db)
+            # Backward Pass: Transpose X to align dimensions for the gradient dot product
+            # (D, N) @ (N, 1) = (D, 1) -> Exactly the shape of our weights!
+            dw = (2 / N) * (X.T @ error)
+            db = (2 / N) * np.sum(error)
 
-            # Optional: Calculate and save the current loss to see if it's going down
-            current_loss = np.mean((y - y_pred) ** 2)
+            # Parameter Update
+            self.weights = self.weights - (self.learning_rate * dw)
+            self.bias = self.bias - (self.learning_rate * db)
+
+            # Track loss
+            current_loss = np.mean(error ** 2)
             self.loss_history.append(current_loss)
 
     def predict(self, X):
-        # The easiest function in ML: just apply the y = mx + b formula
-        return self.m * X + self.b
+        # Automatically handles however many columns X has
+        return X @ self.weights + self.bias
