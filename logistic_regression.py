@@ -1,7 +1,7 @@
 import numpy as np
 
 class logisticRegression():
-    def __init__(self):
+    def __init__(sel, ep):
         pass
     def fit(self):
         pass
