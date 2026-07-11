@@ -72,3 +72,7 @@ class LogisticRegression:
             self.weights = self.weights - (self.lr * dw)
             self.bias = self.bias - (self.lr * db)
 
+    def predict(self, X, threshold=0.5):
+        """Returns the hard class (1 or 0) based on the 0.5 threshold"""
+        probabilities = self.predict_proba(X)
+        return (probabilities >= threshold).astype(int)
