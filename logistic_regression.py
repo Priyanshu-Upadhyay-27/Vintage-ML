@@ -72,6 +72,11 @@ class LogisticRegression:
             self.weights = self.weights - (self.lr * dw)
             self.bias = self.bias - (self.lr * db)
 
+    def predict_proba(self, X):
+        """Returns the raw probability (e.g., 0.85)"""
+        z = X @ self.weights + self.bias
+        return self._sigmoid(z)
+
     def predict(self, X, threshold=0.5):
         """Returns the hard class (1 or 0) based on the 0.5 threshold"""
         probabilities = self.predict_proba(X)
