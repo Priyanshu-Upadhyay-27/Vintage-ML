@@ -1,5 +1,5 @@
 # Linear Regression - OLS method: Ordinary Least Square
-# good for 2D and similar dimension, not suitable for large dimenesion
+# good for 2D and similar dimension, not suitable for large dimension
 import numpy as np
 
 class OrdinaryLeastSquare:
