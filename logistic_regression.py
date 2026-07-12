@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class LogisticRegression:
     def __init__(self, learning_rate=0.01, epochs=1000):
         self.lr = learning_rate
@@ -81,3 +80,5 @@ class LogisticRegression:
         """Returns the hard class (1 or 0) based on the 0.5 threshold"""
         probabilities = self.predict_proba(X)
         return (probabilities >= threshold).astype(int)
+
+# Now we will also make the perceptron too.
