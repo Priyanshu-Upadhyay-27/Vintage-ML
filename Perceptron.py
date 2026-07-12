@@ -60,4 +60,6 @@ class Perceptron:
 
     def predict(self, X):
         """Predicts the classes for a whole matrix X at once."""
-        pass
+        z = X @ self.weights + self.bias
+        # Apply the step function across the whole array
+        return np.where(z >= 0, 1, 0)
